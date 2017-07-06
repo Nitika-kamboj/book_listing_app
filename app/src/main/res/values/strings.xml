@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">BookListingApp</string>
+    <string name="noDataFound">No Data Found</string>
+</resources>
