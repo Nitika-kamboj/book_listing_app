@@ -40,7 +40,6 @@ super(context,0,books);
 
      TextView authorView=(TextView) listItemView.findViewById(R.id.authors);
      authorView.setText(currentBooks.getmAuthor());
-
     return listItemView;
     }
 }

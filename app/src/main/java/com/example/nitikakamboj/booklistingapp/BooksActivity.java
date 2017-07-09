@@ -7,17 +7,8 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import java.io.FileDescriptor;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.List;
-import android.app.LoaderManager;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.Loader;
-import java.util.ArrayList;
-import java.util.List;
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Loader;
@@ -50,7 +41,7 @@ public class BooksActivity extends AppCompatActivity implements LoaderManager.Lo
         booksListView.setEmptyView(mEmptyTextView);
         mAdapter = new BooksAdapter(this, new ArrayList<Books>());
         booksListView.setAdapter(mAdapter);
-       mAdapter.notifyDataSetChanged();
+      // mAdapter.notifyDataSetChanged();
         booksListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -65,18 +56,16 @@ public class BooksActivity extends AppCompatActivity implements LoaderManager.Lo
             @Override
             public void onClick(View v) {
                 mEditText.clearFocus();
-
+               //mAdapter.notifyDataSetChanged();
 
                 String searchQuery = mEditText.getText().toString().replaceAll(" ", "+");
                 if (searchQuery != null && !searchQuery.equals("")) {
 
                     searchString = BOOKS_URL + searchQuery;
-
                     ConnectivityManager connMangr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
                     NetworkInfo networkInfo = connMangr.getActiveNetworkInfo();
                     if (networkInfo != null && networkInfo.isConnected()) {
-                        LoaderManager loaderManager = getLoaderManager();
-                        loaderManager.initLoader(LOADER_ID, null, BooksActivity.this);
+                        getLoaderManager().restartLoader(LOADER_ID,null,BooksActivity.this);
                     } else {
                         View loadingIndicator = findViewById(R.id.loading_indicator);
                         loadingIndicator.setVisibility(View.GONE);
@@ -97,12 +86,11 @@ public class BooksActivity extends AppCompatActivity implements LoaderManager.Lo
     public void onLoadFinished(Loader<List<Books>> loader, List<Books> data) {
         View loadingIndicator = findViewById(R.id.loading_indicator);
         loadingIndicator.setVisibility(View.GONE);
-
+           mAdapter.clear();
         mEmptyTextView.setText(R.string.noDataFound);
-
-        mAdapter.clear();
         if (data != null && !data.isEmpty()) {
             mAdapter.addAll(data);
+
         }
     }
 
