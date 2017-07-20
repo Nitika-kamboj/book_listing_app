@@ -28,7 +28,7 @@ public class BooksActivity extends AppCompatActivity implements LoaderManager.Lo
 
     public static final String LOG_TAG = BooksActivity.class.getName();
     public static final int LOADER_ID = 1;
-    public static final String BOOKS_URL =  "https://www.googleapis.com/books/v1/volumes?maxResults=20&q=";
+    public static  String BOOKS_URL =  "https://www.googleapis.com/books/v1/volumes?maxResults=20&q=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
