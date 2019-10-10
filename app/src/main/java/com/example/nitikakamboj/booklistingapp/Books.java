@@ -8,6 +8,7 @@ public class Books {
   private String mTitle;
   private String mAuthor;
   private String mUrl;
+  private String mX;
 
   public Books(String title,String author,String url){
   mTitle=title;
